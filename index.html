@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0984e3">
+    <title>UMT 2122 Kalkulus</title>
+    
+    <link rel="manifest" href="data:application/json;base64,ewogICJnameIjogIktalkulusIEludGVyYWt0aWYiLAogICJzaG9ydF9uYW1lIjogIktalkulusIiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNmZmZmZmYiLAogICJ0aGVtZV9jb2xvciI6ICIjMDk4NGUzIgp9">
+
+    <style>
+        :root {
+            --primary-blue: #0984e3;
+            --rumus-red: #d63031;
+            --rumus-purple: #6c5ce7;
+            --rumus-green: #00b894;
+            --dark: #2d3436;
+        }
+        body { font-family: 'Segoe UI', sans-serif; background: #f1f2f6; margin: 0; padding: 0; line-height: 1.6; }
+        .app-container { max-width: 500px; margin: auto; background: white; min-height: 100vh; display: flex; flex-direction: column; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        
+        .header { background: var(--primary-blue); color: white; padding: 25px 15px; text-align: center; border-radius: 0 0 30px 30px; }
+        .header h1 { margin: 0; font-size: 1.3rem; letter-spacing: 1px; }
+        .header p { margin: 5px 0 0; font-size: 0.85rem; opacity: 0.9; }
+
+        .slide { display: none; padding: 25px; flex-grow: 1; animation: fadeIn 0.4s ease; }
+        .active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .quote-box { background: #f9f9f9; border-left: 5px solid var(--primary-blue); padding: 15px; margin: 20px 0; font-style: italic; color: #444; }
+        
+        /* Kotak Rumus ALERT - Diperbaiki paparan */
+        .rumus-box { padding: 20px; border-radius: 12px; color: white; font-weight: bold; margin: 15px 0; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .rumus-title { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 10px; }
+        .rumus-text { font-size: 1.4rem; font-family: 'Times New Roman', serif; display: block; background: rgba(0,0,0,0.1); padding: 10px; border-radius: 8px; }
+        
+        .red { background: var(--rumus-red); }
+        .purple { background: var(--rumus-purple); }
+        .green { background: var(--rumus-green); }
+
+        .question-area { background: #f9f9f9; border-left: 5px solid var(--primary-blue); padding: 15px; margin: 15px 0; border-radius: 10px; }
+        .math { font-family: 'Times New Roman', serif; font-size: 1.5rem; font-weight: bold; color: var(--dark); display: block; margin: 10px 0; text-align: center; }
+
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; margin-bottom: 12px; font-size: 1rem; transition: 0.3s; }
+        .btn-gen { background: var(--primary-blue); color: white; }
+        .btn-ans { background: var(--dark); color: white; }
+        
+        .answer-box { display: none; background: #e3f2fd; padding: 15px; border-radius: 10px; border: 1px solid var(--primary-blue); margin-top: 10px; font-weight: 500; }
+        
+        .nav-bar { padding: 20px; display: flex; justify-content: space-between; background: #fff; border-top: 1px solid #eee; }
+        .nav-btn { padding: 10px 25px; border: none; background: var(--primary-blue); color: white; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        
+        .footer { text-align: center; padding: 20px; font-size: 0.8rem; background: #f1f2f6; color: #636e72; border-top: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <div class="header">
+        <h1>UMT 2122 KALKULUS</h1>
+        <p>MODUL PEMBEZAAN INTERAKTIF | SEMESTER 2</p>
+    </div>
+
+    <div class="slide active">
+        <h2 style="color: var(--primary-blue); text-align: center;">Mengapa Belajar Kalkulus? 🚀</h2>
+        <p>Kalkulus bukan sekadar subjek matematik, ia adalah <b>Bahasa Perubahan</b> yang membolehkan kita memahami dunia.</p>
+        <div class="quote-box">
+            "Sama ada anda dalam bidang kejuruteraan, ekonomi, atau sains, kalkulus membolehkan anda meramal masa depan melalui pengiraan."
+        </div>
+        <p><b>Kepentingan Kalkulus:</b></p>
+        <ul>
+            <li><b>Teknologi:</b> Membina algoritma peranti pintar dan satelit.</li>
+            <li><b>Ekonomi:</b> Mengira keuntungan maksimum dan kos minimum syarikat.</li>
+            <li><b>Kehidupan:</b> Melatih otak berfikir secara sistematik dalam menyelesaikan masalah kompleks.</li>
+        </ul>
+        <p style="text-align: center; font-weight: bold; color: var(--primary-blue);">Tekan 'Next' untuk mulakan latihan.</p>
+    </div>
+
+    <div class="slide">
+        <h3>1.1.1 Hasil Bahagi Dua Polinomial</h3>
+        <p>Gunakan rumus ini apabila satu fungsi dibahagikan dengan fungsi yang lain.</p>
+        <div class="rumus-box red">
+            <span class="rumus-title">ALERT! Rumus Hasil Bahagi:</span>
+            <span class="rumus-text">dy/dx = (v u' - u v') / v²</span>
+        </div>
+        <div class="question-area">
+            Selesaikan: <span id="q1" class="math">y = 4x / (x + 2)</span>
+        </div>
+        <button class="btn btn-gen" onclick="genQ1()">🔄 Jana Soalan Baru</button>
+        <button class="btn btn-ans" onclick="toggleAns('ans1')">👁️ Lihat Jawapan</button>
+        <div id="ans1" class="answer-box"></div>
+    </div>
+
+    <div class="slide">
+        <h3>1.1.2 Petua Rantai (Chain Rule)</h3>
+        <p>Gunakan ini untuk membezakan fungsi di dalam kuasa (berlapis).</p>
+        <div class="rumus-box purple">
+            <span class="rumus-title">ALERT! Rumus Petua Rantai:</span>
+            <span class="rumus-text">dy/dx = n [f(x)]ⁿ⁻¹ × f'(x)</span>
+        </div>
+        <div class="question-area">
+            Selesaikan: <span id="q2" class="math">y = (3x² + 5)⁴</span>
+        </div>
+        <button class="btn btn-gen" onclick="genQ2()">🔄 Jana Soalan Baru</button>
+        <button class="btn btn-ans" onclick="toggleAns('ans2')">👁️ Lihat Jawapan</button>
+        <div id="ans2" class="answer-box"></div>
+    </div>
+
+    <div class="slide">
+        <h3>1.2.1 & 1.2.2 Titik Pusingan</h3>
+        <p>Gunakan ujian terbitan kedua untuk menentukan sifat titik pegun.</p>
+        <div class="rumus-box green">
+            <span class="rumus-title">ALERT! Ujian Terbitan Kedua:</span>
+            <span class="rumus-text">d²y/dx² > 0 → Minimum (∪)</span>
+            <span class="rumus-text">d²y/dx² < 0 → Maksimum (∩)</span>
+        </div>
+        <div class="question-area">
+            Cari d²y/dx² bagi: <span id="q3" class="math">y = 2x³ - 4x²</span>
+        </div>
+        <button class="btn btn-gen" onclick="genQ3()">🔄 Jana Soalan Baru</button>
+        <button class="btn btn-ans" onclick="toggleAns('ans3')">👁️ Lihat Jawapan</button>
+        <div id="ans3" class="answer-box"></div>
+    </div>
+
+    <div class="slide">
+        <h3>1.3.1 Terbitan Fungsi Trigonometri</h3>
+        <p>Penting untuk mengira getaran dan gelombang dalam sistem teknikal.</p>
+        <div class="rumus-box red" style="background: #e67e22;">
+            <span class="rumus-title">ALERT! Asas Trigonometri:</span>
+            <span class="rumus-text">sin x → cos x | cos x → -sin x</span>
+        </div>
+        <div class="question-area">
+            Bezakan: <span id="q4" class="math">y = 3sin(x) + 5cos(x)</span>
+        </div>
+        <button class="btn btn-gen" onclick="genQ4()">🔄 Jana Soalan Baru</button>
+        <button class="btn btn-ans" onclick="toggleAns('ans4')">👁️ Lihat Jawapan</button>
+        <div id="ans4" class="answer-box"></div>
+    </div>
+
+    <div class="nav-bar">
+        <button class="nav-btn" onclick="move(-1)">Back</button>
+        <button class="nav-btn" onclick="move(1)">Next</button>
+    </div>
+
+    <div class="footer">
+        Aplikasi Disediakan Oleh:<br>
+        <b>Cikgu Anisah Farihah @ Kolej Vokasional Kajang</b>
+    </div>
+</div>
+
+<script>
+    let current = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function move(n) {
+        slides[current].classList.remove('active');
+        current = (current + n + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        document.querySelectorAll('.answer-box').forEach(a => a.style.display = 'none');
+        window.scrollTo(0,0);
+    }
+
+    function toggleAns(id) {
+        const x = document.getElementById(id);
+        x.style.display = (x.style.display === "block") ? "none" : "block";
+    }
+
+    // Generator Soalan Rawak
+    function genQ1() {
+        let a = Math.floor(Math.random() * 7) + 2;
+        let b = Math.floor(Math.random() * 5) + 1;
+        document.getElementById('q1').innerText = `y = ${a}x / (x + ${b})`;
+        document.getElementById('ans1').innerHTML = `Langkah: u=${a}x, v=x+${b}.<br>u'=${a}, v'=1.<br>Jawapan: <b>${a*b} / (x + ${b})²</b>`;
+    }
+
+    function genQ2() {
+        let n = Math.floor(Math.random() * 3) + 3;
+        let a = Math.floor(Math.random() * 4) + 2;
+        document.getElementById('q2').innerHTML = `y = (${a}x² + 4)<sup>${n}</sup>`;
+        document.getElementById('ans2').innerHTML = `Langkah: Turunkan kuasa ${n} ke depan, darab terbitan dalam (${a*2}x).<br>Jawapan: <b>${n*a*2}x(${a}x² + 4)<sup>${n-1}</sup></b>`;
+    }
+
+    function genQ3() {
+        let a = Math.floor(Math.random() * 5) + 2;
+        document.getElementById('q3').innerText = `y = ${a}x³ - 5x²`;
+        document.getElementById('ans3').innerHTML = `Terbitan 1: ${a*3}x² - 10x<br>Terbitan 2: <b>${a*6}x - 10</b>`;
+    }
+
+    function genQ4() {
+        let a = Math.floor(Math.random() * 9) + 2;
+        let b = Math.floor(Math.random() * 9) + 2;
+        document.getElementById('q4').innerText = `y = ${a}sin(x) + ${b}cos(x)`;
+        document.getElementById('ans4').innerHTML = `Jawapan: <b>${a}cos(x) - ${b}sin(x)</b>`;
+    }
+
+    // Offline Support / Service Worker
+    if ('serviceWorker' in navigator) {
+        const swCode = `self.addEventListener('install', e => e.waitUntil(caches.open('v1').then(c => c.add(location.href)))); self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r => r || fetch(e.request))));`;
+        const blob = new Blob([swCode], {type: 'text/javascript'});
+        navigator.serviceWorker.register(URL.createObjectURL(blob));
+    }
+
+    // Init first questions
+    genQ1(); genQ2(); genQ3(); genQ4();
+</script>
+</body>
+</html>
